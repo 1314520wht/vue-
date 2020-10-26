@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第九期框架-佳楠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #target {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="target"></div>
+    <script>
+        target.ondragover = function(e) {
+            this.innerText = '松开鼠标读取文件内容'
+            e.preventDefault()
+        }
+        target.ondrop = async function(e) {
+            e.preventDefault()
+            this.innerText = '文件读取成功'
+            const fileInfo = e.dataTransfer.files
+            let file = fileInfo[0]
+            console.log(file)
+
+            let blob = new Blob([file], {type: 'text/plain'}) // 第一个参数一定是一个数组,第二个是文件类型
+            
+            let text = await blob.text()
+            console.log(text)
+            
+
+        }
+    </script>
+</body>
+</html>
